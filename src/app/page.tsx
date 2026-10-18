@@ -6,6 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  DATE_OF_SERVICE_MAX,
+  INSURANCE_TYPE_MAX,
+  PATIENT_INFO_MAX,
+  PROCEDURE_DESCRIPTION_MAX,
+  PROVIDER_TYPE_MAX,
+} from "@/lib/claim-limits";
 
 interface IcdCode { code: string; description: string; confidence: string; isPrimary: boolean; }
 interface CptCode { code: string; description: string; units: number; modifiers: string[]; }
@@ -56,24 +63,25 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
                 <Label>Patient Info</Label>
-                <Input placeholder="Age, sex, relevant history" value={form.patientInfo} onChange={e => set("patientInfo", e.target.value)} />
+                <Input maxLength={PATIENT_INFO_MAX} placeholder="Age, sex, relevant history" value={form.patientInfo} onChange={e => set("patientInfo", e.target.value)} />
               </div>
               <div className="space-y-1">
                 <Label>Date of Service</Label>
-                <Input type="date" value={form.dateOfService} onChange={e => set("dateOfService", e.target.value)} />
+                <Input maxLength={DATE_OF_SERVICE_MAX} type="date" value={form.dateOfService} onChange={e => set("dateOfService", e.target.value)} />
               </div>
               <div className="space-y-1">
                 <Label>Provider Type</Label>
-                <Input placeholder="e.g. Family Medicine, Cardiology" value={form.providerType} onChange={e => set("providerType", e.target.value)} />
+                <Input maxLength={PROVIDER_TYPE_MAX} placeholder="e.g. Family Medicine, Cardiology" value={form.providerType} onChange={e => set("providerType", e.target.value)} />
               </div>
               <div className="space-y-1">
                 <Label>Insurance Type</Label>
-                <Input placeholder="e.g. Medicare, Blue Cross PPO" value={form.insuranceType} onChange={e => set("insuranceType", e.target.value)} />
+                <Input maxLength={INSURANCE_TYPE_MAX} placeholder="e.g. Medicare, Blue Cross PPO" value={form.insuranceType} onChange={e => set("insuranceType", e.target.value)} />
               </div>
             </div>
             <div className="space-y-1">
               <Label>Procedure / Visit Description *</Label>
               <Textarea
+                maxLength={PROCEDURE_DESCRIPTION_MAX}
                 placeholder="Describe the clinical encounter, diagnoses, and procedures performed..."
                 className="min-h-32"
                 value={form.procedureDescription}
